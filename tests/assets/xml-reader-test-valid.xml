@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmlreader>
+	<testing>
+		<!-- Comment test -->
+		<attributest1 test="true" testing="false" rdattr="3rdattr" />
+		<attributest2 test="true" testing="false">
+			<testChild>asdasd</testChild>
+		</attributest2>
+		<attributest3 test="true" testing="false"></attributest3>
+		<attributest4 test="true" testing="false"></attributest4>
+		<attributest5 test="true" testing="false"></attributest5>
+		<general>General test 1</general>
+	</testing>
+	<testing>
+		<contenttest>
+			<cdatatest><![CDATA[cdata values]]></cdatatest>
+		</contenttest>
+		<contenttest>Testing content</contenttest>
+		<general>General test 2</general>
+	</testing>
+	<testing xmlns:t="http://www.w3.org/1999/XSL/Transform">
+		<namespacetesting>
+			<t:testing with="attributes">Testing namespace</t:testing>
+		</namespacetesting>
+		<general>General test 3</general>
+	</testing>
+</xmlreader>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<static>
+	<test>
+		<testsubchildren>
+			<subchild>Subchild 1</subchild>
+			<subchild>Subchild 2</subchild>
+			<subchild>Subchild 3</subchild>
+			<subchild>Subchild 4</subchild>
+			<subchild>Subchild 5</subchild>
+			<subchild>Subchild 6</subchild>
+		</testsubchildren>
+	</test>
+	<test>Do not change anything</test>
+	<test><![CDATA[Do not change anything]]></test>
+</static>

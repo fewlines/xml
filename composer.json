@@ -1,0 +1,19 @@
+{
+	"name": "fewlines/xml",
+	"description": "Fast XML-Reader & Writer",
+	"keywords": ["xml", "parser", "reader", "writer"],
+	"licence": "MIT",
+	"authors": [
+		{
+			"name": "Davide Perozzi"
+		}
+	],
+	"require-dev": {
+		 "phpunit/phpunit": "~5.1"
+	},
+	"autoload": {
+		"psr-4": {
+			"Fewlines\\XML\\": "src"
+		}
+	}
+}
