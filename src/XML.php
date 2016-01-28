@@ -2,6 +2,8 @@
 
 namespace Fewlines\XML;
 
+use Fewlines\XML\Element\Saveable;
+
 class XML
 {
 	/**
@@ -111,11 +113,19 @@ class XML
 			// Get the tree as array of elements
 			$this->tree = $this->reader->getTree();
 
+			// Find the root node to start with
 		 	foreach ($this->tree as $element) {
 		 		if ($element instanceof Element\Node) {
 		 			$this->root = &$element;
 		 			break;
 		 		}
+		 	}
+
+		 	// Check if the root node was found
+		 	if ( ! $this->root instanceof Node) {
+		 		throw new Exception\InitializeException(
+		 			'Root node could not be found'
+		 		);
 		 	}
 		}
 
@@ -123,30 +133,6 @@ class XML
 		$this->reader->close();
 
 		return $this;
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getRoot() {
-		return $this->root;
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getTree() {
-		return $this->tree;
-	}
-
-	/**
-	 * Returns if the cache is enabled
-	 * or not
-	 *
-	 * @return boolean
-	 */
-	public function hasCache() {
-		return !is_null($this->cache);
 	}
 
 	/**
@@ -199,6 +185,39 @@ class XML
 
 		$this->writer->endDocument();
 		$this->writer->flush();
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getRoot() {
+		return $this->root;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getTree() {
+		return $this->tree;
+	}
+
+	/**
+	 * Returns if the cache is enabled
+	 * or not
+	 *
+	 * @return boolean
+	 */
+	public function hasCache() {
+		return !is_null($this->cache);
+	}
+
+	/**
+	 * Appends a node to the root node
+	 *
+	 * @param  Node $node
+	 */
+	public function append(Node $node) {
+		$this->root->append($node);
 	}
 
 	/**

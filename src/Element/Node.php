@@ -4,6 +4,7 @@ namespace Fewlines\XML\Element;
 
 use Fewlines\XML\XML;
 use Fewlines\XML\Writer;
+use Fewlines\XML\Element\Saveable;
 
 class Node extends Base implements Traversable
 {
@@ -237,28 +238,32 @@ class Node extends Base implements Traversable
 	 * @param Writer &$writer
 	 */
 	public function save(Writer &$writer) {
-		$writer->startElement($this->name);
+		if ($this instanceof Saveable) {
+			$writer->startElement($this->name);
 
-		// Write data
-		if ( ! empty($this->content)) {
-			if ($this->isCData()) {
-				$writer->writeCData($this->content);
+			// Write data
+			if ( ! empty($this->content) && empty($this->children)) {
+				if ($this->isCData()) {
+					$writer->writeCData($this->content);
+				}
+				else {
+					$writer->text($this->content);
+				}
 			}
-			else {
-				$writer->text($this->content);
+
+			print_r($this->attributes);
+
+			// Write attributes
+			foreach ($this->attributes as $name => $value) {
+				$writer->writeAttribute($name, $value);
+	  		}
+
+	        // Writer children
+			foreach ($this->children as $child) {
+				$child->save($writer);
 			}
+
+			$writer->endElement();
 		}
-
-		// Write attributes
-		foreach ($this->attributes as $name => $value) {
-            $writer->writeAttribute($name, $value);
-        }
-
-        // Writer children
-		foreach ($this->children as $child) {
-			$child->save($writer);
-		}
-
-		$writer->endElement();
 	}
 }

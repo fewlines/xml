@@ -12,17 +12,37 @@ use Fewlines\XML\Element\Node;
  */
 
 $xml = new XML();
-$xml->load(__DIR__ . '/assets/xml-reader-test-valid.xml');
+// $xml->load(__DIR__ . '/assets/xml-reader-test-valid.xml');
+// $xml->getRoot()->append(
+// 	new Node('testappend', [
+// 		new Node('testnodechild'),
+// 		new Node('testnodechild'),
+// 		new Node('testnodechild'),
+// 		new Node('testnodechild'),
+// 		new Node('testnodechild'),
+// 		new Node('testnodechild'),
+// 		new Node('testnodechild')
+// 	])
+// );
+$xml->load(__DIR__ . '/assets/xml-reader-test-ns.xml');
 $xml->getRoot()->append(
-	new Node('testappend', [
-		new Node('testnodechild'),
-		new Node('testnodechild'),
-		new Node('testnodechild'),
-		new Node('testnodechild'),
-		new Node('testnodechild'),
-		new Node('testnodechild'),
-		new Node('testnodechild')
-	])
+    new Node('t:testappend',
+        [
+            new Node('t:testingchild',
+                [
+
+                ],
+                'Content',
+                [
+                    't:prefixtrest' => 'prefixtest'
+                ]
+            )
+        ],
+        '',
+        [
+            'xmlns:t' => 'http://Testing.de'
+        ]
+    )
 );
 $xml->save();
 
